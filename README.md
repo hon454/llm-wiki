@@ -58,4 +58,6 @@ wiki/         # LLM이 생성·관리하는 위키
 
 ## License
 
-MIT
+이 프로젝트는 [MIT License](LICENSE)로 배포됩니다.
+
+Copyright (c) 2026 Jihoon Jeon
