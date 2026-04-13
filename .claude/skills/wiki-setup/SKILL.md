@@ -31,7 +31,7 @@ Create symlinks for wiki skills so they are discoverable from any workspace:
 
 ```bash
 WIKI_ROOT="!`pwd`"
-for skill in wiki-ingest wiki-query wiki-lint; do
+for skill in wiki-ingest wiki-query wiki-lint wiki-research; do
   ln -sfn "$WIKI_ROOT/.claude/skills/$skill" "$HOME/.claude/skills/$skill"
 done
 ```
@@ -43,5 +43,5 @@ Note: `wiki-setup` is NOT symlinked — it is only needed inside this repo.
 Print:
 - Wiki root saved to `~/.config/llm-wiki/root`
 - `permissions.additionalDirectories` registered in `~/.claude/settings.json`
-- Skills symlinked to `~/.claude/skills/`: wiki-ingest, wiki-query, wiki-lint
-- You can now use `/wiki-ingest`, `/wiki-query`, `/wiki-lint` from any workspace
+- Skills symlinked to `~/.claude/skills/`: wiki-ingest, wiki-query, wiki-lint, wiki-research
+- You can now use `/wiki-ingest`, `/wiki-query`, `/wiki-lint`, `/wiki-research` from any workspace
