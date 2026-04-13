@@ -42,6 +42,15 @@ wiki/         # LLM이 생성·관리하는 위키
 
 위키를 참조해 답변을 생성하고, 원하면 결과를 저장한다.
 
+### 리서치
+
+```
+/wiki-research <주제 또는 주장>
+/wiki-research --deep <주제 또는 주장>
+```
+
+주제를 주면 병렬 에이전트가 웹에서 소스를 찾아오고, 목록에서 선별하여 인제스트한다.
+
 ### 건강 검진
 
 ```
@@ -140,6 +149,10 @@ LLM:    # Wiki Lint Report
 
 - **Dataview**: Obsidian → 설정 → 커뮤니티 플러그인 → 제한 모드 해제 → "Dataview" 검색 → 설치 → 활성화
 - **Web Clipper**: [obsidian.md/clipper](https://obsidian.md/clipper)에서 브라우저에 맞는 확장 프로그램 설치 → 클리핑 저장 경로를 이 vault의 `raw/` 폴더로 지정하면 `/wiki-ingest`로 바로 투입할 수 있다
+
+## ADR
+
+설계 의사결정은 `docs/adr/`에 기록한다. 채택, 보류, 기각 결정과 그 이유를 추적한다.
 
 ## License
 
