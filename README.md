@@ -50,6 +50,79 @@ wiki/         # LLM이 생성·관리하는 위키
 
 깨진 링크, 고아 페이지, 인덱스 누락 등을 점검한다.
 
+## 사용 예시
+
+### 1. 소스 투입 (`/wiki-ingest`)
+
+Karpathy의 LLM Wiki gist를 인제스트하는 예시:
+
+```
+사용자: /wiki-ingest https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f
+
+LLM:    소스를 읽었습니다. 핵심 요약:
+        - RAG와 달리 LLM이 영구 위키를 점진적으로 구축·유지
+        - 3계층: Raw sources → Wiki → Schema
+        - 3가지 연산: Ingest, Query, Lint
+        특별히 강조할 방향이 있을까요?
+
+사용자: 전체적으로 정리해줘
+
+LLM:    실행 계획:
+        - 생성: wiki/sources/karpathy-llm-wiki.md (소스 요약)
+        - 생성: wiki/entities/andrej-karpathy.md, wiki/entities/obsidian.md
+        - 생성: wiki/concepts/llm-wiki-pattern.md, wiki/concepts/rag.md, wiki/concepts/memex.md
+        - 업데이트: wiki/index.md, wiki/log.md
+
+        ✓ 6개 페이지 생성, 인덱스 업데이트 완료
+```
+
+한 번의 인제스트로 소스 요약 1개, 엔티티 2개, 개념 3개가 생성되고, 모두 `[[wikilink]]`로 상호 연결된다.
+
+### 2. 질의 (`/wiki-query`)
+
+위키에 축적된 지식을 기반으로 질문에 답변:
+
+```
+사용자: /wiki-query RAG와 LLM Wiki의 차이가 뭐야?
+
+LLM:    [[rag]]는 매 질의마다 원본에서 관련 청크를 검색하여 답변을 생성합니다.
+        지식이 축적되지 않고, 매번 처음부터 재발견해야 합니다.
+
+        반면 [[llm-wiki-pattern]]은 LLM이 영구 위키를 점진적으로 구축합니다.
+        교차 참조가 미리 만들어져 있고, 모순은 이미 표시되어 있으며,
+        소스가 추가될수록 위키가 복리로 성장합니다.
+
+        이 답변을 위키에 저장할까요?
+
+사용자: 응
+
+LLM:    ✓ wiki/synthesis/rag-vs-llm-wiki.md로 저장 완료
+```
+
+답변이 마음에 들면 `wiki/synthesis/`에 저장하여 지식으로 축적할 수 있다.
+
+### 3. 건강 검진 (`/wiki-lint`)
+
+위키의 일관성을 점검:
+
+```
+사용자: /wiki-lint
+
+LLM:    # Wiki Lint Report
+
+        ## Summary
+        - Total pages: 6
+        - Broken links: 0
+        - Missing from index: 0
+        - Orphan pages: 0
+        - Frontmatter issues: 0
+        - Suspected contradictions: 0
+
+        ✓ 모든 검사를 통과했습니다.
+```
+
+깨진 링크, 고아 페이지, 인덱스 누락, 프론트매터 오류, 내용 모순 등을 자동으로 감지하고 수정을 제안한다.
+
 ## Obsidian
 
 이 레포지토리를 Obsidian vault로 열면 `[[wikilink]]` 그래프를 탐색할 수 있다.
