@@ -1,6 +1,6 @@
 ---
 name: wiki-setup
-description: One-time setup — registers llm-wiki as a global addDir and saves the wiki root path for cross-workspace access
+description: One-time setup — saves wiki root path, registers permissions, and symlinks skills for cross-workspace access
 disable-model-invocation: true
 ---
 
@@ -25,18 +25,23 @@ Add this wiki's path to `~/.claude/settings.json` under `permissions.additionalD
 
 Read `~/.claude/settings.json`. If `permissions` does not exist, create it as an empty object. If `permissions.additionalDirectories` does not exist, create it as an empty array. Add the current directory's absolute path to the array (if not already present). Write the file back.
 
-Example entry to add:
-```json
-{
-  "permissions": {
-    "additionalDirectories": ["/Users/jeonjihun/Workspace/llm-wiki"]
-  }
-}
+3. **Symlink skills to user-level directory**
+
+Create symlinks for wiki skills so they are discoverable from any workspace:
+
+```bash
+WIKI_ROOT="!`pwd`"
+for skill in wiki-ingest wiki-query wiki-lint; do
+  ln -sfn "$WIKI_ROOT/.claude/skills/$skill" "$HOME/.claude/skills/$skill"
+done
 ```
 
-3. **Confirm to user**
+Note: `wiki-setup` is NOT symlinked — it is only needed inside this repo.
+
+4. **Confirm to user**
 
 Print:
 - Wiki root saved to `~/.config/llm-wiki/root`
 - `permissions.additionalDirectories` registered in `~/.claude/settings.json`
+- Skills symlinked to `~/.claude/skills/`: wiki-ingest, wiki-query, wiki-lint
 - You can now use `/wiki-ingest`, `/wiki-query`, `/wiki-lint` from any workspace
