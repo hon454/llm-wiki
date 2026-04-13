@@ -56,6 +56,15 @@ wiki/         # LLM이 생성·관리하는 위키
 - `raw/`: 읽기/쓰기 (Web Clipper 등으로 소스 수집)
 - `wiki/`: 읽기 전용 (LLM만 수정)
 
+### 권장 플러그인
+
+| 플러그인 | 유형 | 용도 |
+|---------|------|------|
+| [Dataview](https://github.com/blacksmithgu/obsidian-dataview) | 커뮤니티 | frontmatter 기반 동적 테이블/리스트 (예: `status: needs-review` 페이지 목록) |
+| [Web Clipper](https://obsidian.md/clipper) | 브라우저 확장 | 웹 기사를 마크다운으로 변환하여 `raw/`에 저장 |
+
+> **Web Clipper 설정 팁**: 클리핑 저장 경로를 이 vault의 `raw/` 폴더로 지정하면 `/wiki-ingest`로 바로 투입할 수 있다.
+
 ## License
 
 이 프로젝트는 [MIT License](LICENSE)로 배포됩니다.
