@@ -112,15 +112,16 @@ Append-only, grep-parseable. Each entry:
 Description of what was done.
 ```
 
-Actions: `ingest`, `query`, `lint`
+Actions: `ingest`, `query`, `lint`, `research`
 
 ## Cognitive Scaffolding
 
 Before modifying files during ingest:
 1. List all existing wiki pages that may need updating
-2. Write out the execution plan (which pages to create, which to update, what links to add)
-3. Follow the plan page by page
-4. After completion, verify the plan was fully executed
+2. Review related ADRs — check if any deferred decision's revisit conditions are now met
+3. Write out the execution plan (which pages to create, which to update, what links to add)
+4. Follow the plan page by page
+5. After completion, verify the plan was fully executed
 
 ## Human-in-the-Loop (HITL) Rules
 
@@ -133,3 +134,10 @@ Before modifying files during ingest:
 - When ingesting sources with images, save images to `raw/assets/`
 - Describe each image's content as text in the wiki page
 - Reference images using relative markdown paths: `![description](../../raw/assets/image-name.png)`
+
+## ADR (Architecture Decision Records)
+
+- Review existing ADRs in `docs/adr/` before making design decisions to check for conflicts
+- Write a new ADR when a new design decision or deferral/rejection is made
+- When a deferred ADR's Revisit Conditions are met, notify the user
+- ADR numbers are sequential, filenames use kebab-case
