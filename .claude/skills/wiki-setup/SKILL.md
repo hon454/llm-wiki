@@ -19,16 +19,18 @@ mkdir -p ~/.config/llm-wiki
 echo "!`pwd`" > ~/.config/llm-wiki/root
 ```
 
-2. **Register addDir in global settings**
+2. **Register additionalDirectories in global settings**
 
-Add this wiki's path to `~/.claude/settings.json` under `addDirs`:
+Add this wiki's path to `~/.claude/settings.json` under `permissions.additionalDirectories`:
 
-Read `~/.claude/settings.json`. If `addDirs` does not exist, create it as an empty array. Add the current directory's absolute path to the array (if not already present). Write the file back.
+Read `~/.claude/settings.json`. If `permissions` does not exist, create it as an empty object. If `permissions.additionalDirectories` does not exist, create it as an empty array. Add the current directory's absolute path to the array (if not already present). Write the file back.
 
 Example entry to add:
 ```json
 {
-  "addDirs": ["/Users/jeonjihun/Workspace/llm-wiki"]
+  "permissions": {
+    "additionalDirectories": ["/Users/jeonjihun/Workspace/llm-wiki"]
+  }
 }
 ```
 
@@ -36,5 +38,5 @@ Example entry to add:
 
 Print:
 - Wiki root saved to `~/.config/llm-wiki/root`
-- addDir registered in `~/.claude/settings.json`
+- `permissions.additionalDirectories` registered in `~/.claude/settings.json`
 - You can now use `/wiki-ingest`, `/wiki-query`, `/wiki-lint` from any workspace
