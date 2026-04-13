@@ -1,5 +1,18 @@
 # LLM Wiki Rules
 
+## Commit Convention
+
+Follow [Conventional Commits](https://www.conventionalcommits.org/):
+
+```
+<type>: <description>
+```
+
+Types: `feat`, `fix`, `docs`, `chore`, `refactor`, `style`, `test`
+
+- Subject line: imperative mood, lowercase, no period, under 72 characters
+- Body (optional): explain *why*, not *what*
+
 This file defines the rules and schema for the llm-wiki knowledge base. All wiki operations (ingest, query, lint) must follow these rules.
 
 ## Language
