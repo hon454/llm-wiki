@@ -18,7 +18,7 @@ This file defines the rules and schema for the llm-wiki knowledge base. All wiki
 ## Language
 
 - All wiki page content (titles, body text, summaries) must be written in **Korean**
-- AI instructions (this file, SKILL.md files) are written in English
+- All system-level files must be written in **English**: CLAUDE.md, SKILL.md, .gitignore, commit messages, frontmatter keys/values
 - Frontmatter field names and values (tags, status) remain in English
 
 ## Directory Roles
