@@ -63,7 +63,10 @@ wiki/         # LLM이 생성·관리하는 위키
 | [Dataview](https://github.com/blacksmithgu/obsidian-dataview) | 커뮤니티 | frontmatter 기반 동적 테이블/리스트 (예: `status: needs-review` 페이지 목록) |
 | [Web Clipper](https://obsidian.md/clipper) | 브라우저 확장 | 웹 기사를 마크다운으로 변환하여 `raw/`에 저장 |
 
-> **Web Clipper 설정 팁**: 클리핑 저장 경로를 이 vault의 `raw/` 폴더로 지정하면 `/wiki-ingest`로 바로 투입할 수 있다.
+#### 설치 방법
+
+- **Dataview**: Obsidian → 설정 → 커뮤니티 플러그인 → 제한 모드 해제 → "Dataview" 검색 → 설치 → 활성화
+- **Web Clipper**: [obsidian.md/clipper](https://obsidian.md/clipper)에서 브라우저에 맞는 확장 프로그램 설치 → 클리핑 저장 경로를 이 vault의 `raw/` 폴더로 지정하면 `/wiki-ingest`로 바로 투입할 수 있다
 
 ## License
 
