@@ -71,28 +71,49 @@ For each source to ingest:
 
 3. **Cognitive scaffolding** (per CLAUDE.md):
    - List all existing wiki pages that may need updating
+   - Review related ADRs — check if the current ingest conflicts with any accepted ADR's decision
    - Write out the execution plan: which pages to create, which to update, what links to add
    - Present the plan to the user
 
-4. **Generate wiki pages**:
+4. **Slug uniqueness check** — before creating any wiki page:
+   - Check all `wiki/**/*.md` for an existing file with the same basename as the page to be created
+   - On collision, do not create the page; suggest alternatives:
+     ```
+     wiki/entities/transformer.md 가 이미 존재합니다.
+     제안: transformer-architecture, transformer-model
+     사용할 이름을 선택하거나 입력해주세요:
+     ```
+
+5. **Generate wiki pages**:
    - `wiki/sources/<source-name>.md` — source summary (1:1 with raw file)
    - `wiki/entities/<name>.md` — for each new entity. If page exists, append new info
    - `wiki/concepts/<name>.md` — for each new concept. If page exists, update
    - `wiki/synthesis/<name>.md` — only if meaningful cross-source connections found
 
-5. **Cross-link**: Add `[[wikilinks]]` backlinks to related existing pages
+6. **Cross-link**: Add `[[wikilinks]]` backlinks to related existing pages
 
-6. **Update index**: Add new pages to `$WIKI_ROOT/wiki/index.md` under appropriate sections
+7. **Update index**: Add new pages to `$WIKI_ROOT/wiki/index.md` under appropriate sections
 
-7. **Update log**: Append entry to `$WIKI_ROOT/wiki/log.md`:
-   ```
-   ## [YYYY-MM-DD] ingest | <source title>
-   <summary of what was created/updated>
-   ```
+8. **Update log**:
+   - Append the per-source entry to `$WIKI_ROOT/wiki/log.md`:
+     ```
+     ## [YYYY-MM-DD] ingest | <source title>
+     <summary of what was created/updated>
+     ```
+   - If this `/wiki-ingest` invocation processed more than one source, append one additional batch summary entry after all per-source entries:
+     ```
+     ## [YYYY-MM-DD] ingest | batch run
+     metrics: sources_processed=<N>
+     <summary of the batch>
+     ```
 
-8. **Lint**: Run `/wiki-lint` to verify consistency
+9. **Lint**: Run `/wiki-lint` to verify consistency
 
-9. **Commit & Push**: Ask the user if they want to commit and push:
+10. **Plan verification** — re-read the execution plan from the cognitive scaffolding step:
+    - Verify all planned page creates/updates were completed
+    - Report any omissions before proceeding to commit
+
+11. **Commit & Push**: Ask the user if they want to commit and push:
    ```
    위키 변경사항을 커밋하고 푸시할까요? (Y/n)
    ```
@@ -100,7 +121,7 @@ For each source to ingest:
    - `cd $WIKI_ROOT`
    - `git add raw/ wiki/`
    - Commit following Conventional Commits: `docs: ingest <source title>`
-   - `git push origin main`
+   - `git push origin HEAD`
 
 ### HITL Rules
 
