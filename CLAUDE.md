@@ -25,7 +25,7 @@ This file defines the rules and schema for the llm-wiki knowledge base. All wiki
 
 | Path | Role | Who writes | Update pattern |
 |------|------|-----------|----------------|
-| `raw/` | Immutable source storage | User + LLM | LLM saves during ingest, or user adds directly |
+| `raw/` | Source storage (LLM does not modify content; deletion only via retract) | User + LLM | LLM saves during ingest, or user adds directly |
 | `wiki/sources/` | Source summaries | LLM only | Created once per ingest, rarely modified |
 | `wiki/entities/` | Proper noun pages (people, tools, orgs) | LLM only | Accumulated when mentioned in new sources |
 | `wiki/concepts/` | Abstract concept pages (theories, frameworks) | LLM only | Updated as understanding deepens |
@@ -109,19 +109,26 @@ Append-only, grep-parseable. Each entry:
 
 ```markdown
 ## [YYYY-MM-DD] action | title
+metrics: key=value, key=value
 Description of what was done.
 ```
 
-Actions: `ingest`, `query`, `lint`, `research`
+- `metrics:` is optional for simple single-source operations
+- `metrics:` is required when an operation processes multiple sources or downstream lint checks depend on quantitative counts
+- Use comma-separated `key=value` pairs (for example: `sources_processed=12, agents=5`)
+
+Actions: `ingest`, `query`, `lint`, `research`, `retract`
 
 ## Cognitive Scaffolding
 
 Before modifying files during ingest:
 1. List all existing wiki pages that may need updating
-2. Review related ADRs — check if any deferred decision's revisit conditions are now met
+2. Review related ADRs — check if the current ingest conflicts with any accepted ADR's decision
 3. Write out the execution plan (which pages to create, which to update, what links to add)
 4. Follow the plan page by page
 5. After completion, verify the plan was fully executed
+
+> Note: ADR revisit condition의 정량적 평가(소스 수, 단어 수 등)는 lint가 담당한다.
 
 ## Human-in-the-Loop (HITL) Rules
 
