@@ -35,8 +35,18 @@ WIKI_ROOT=!`cat ~/.config/llm-wiki/root`
 
 5. **Save prompt**: After presenting the answer, ask: "이 답변을 위키에 저장할까요?" (Save this answer to the wiki?)
 
-6. If the user confirms:
-   - Save to `$WIKI_ROOT/wiki/synthesis/<kebab-case-question>.md` with proper frontmatter
+6. **Slug uniqueness check** — if the user confirms saving:
+   - Determine the target filename: `wiki/synthesis/<kebab-case-question>.md`
+   - Check all `wiki/**/*.md` for an existing file with the same basename
+   - On collision, do not create the page; suggest alternatives:
+     ```
+     wiki/concepts/agentic-coding-workflow.md 가 이미 존재합니다.
+     제안: codex-vs-claude-query, agentic-coding-workflow-comparison
+     사용할 이름을 선택하거나 입력해주세요:
+     ```
+
+7. If the user confirms:
+   - Save to `$WIKI_ROOT/wiki/synthesis/<chosen-kebab-case-question>.md` with proper frontmatter
    - Update `$WIKI_ROOT/wiki/index.md`
    - Append to `$WIKI_ROOT/wiki/log.md`:
      ```
