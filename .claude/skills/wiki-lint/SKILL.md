@@ -64,6 +64,21 @@ Run all checks below and compile a report.
   - `transformer`: wiki/entities/transformer.md, wiki/concepts/transformer.md
   ```
 
+### 7. ADR Revisit Condition Check
+
+For each deferred ADR in `docs/adr/`:
+
+1. Measure quantitative conditions:
+   - ADR-0003: count `.md` files in `raw/` (threshold: 100), excluding `raw/assets/`; count total words in `wiki/` (threshold: 400K)
+   - ADR-0004: scan `wiki/log.md` for the last 30 days; count entries with a `metrics:` line containing `sources_processed=<N>` where `N >= 10`. Alert if 3+ such entries exist in the window.
+2. Report at 80% (warning) and 100% (alert) for threshold-based conditions.
+3. For ADR-0004, use only explicit `metrics:` lines — do **not** infer source counts from free-form prose:
+   ```
+   ### ADR Revisit Alerts
+   - ⚠ ADR-0003 (multi-wiki): 소스 82/100건 — 임계값 80% 도달
+   - ⚠ ADR-0004 (automation): 최근 30일 내 10+ 소스 배치 인제스트 3회 감지
+   ```
+
 ## Report Format
 
 Present results as:
@@ -79,6 +94,7 @@ Present results as:
 - Frontmatter issues: N
 - Suspected contradictions: N
 - Slug conflicts: N
+- ADR revisit alerts: N
 
 ## Details
 
@@ -99,6 +115,9 @@ Present results as:
 
 ### Slug Conflicts
 - `transformer`: wiki/entities/transformer.md, wiki/concepts/transformer.md
+
+### ADR Revisit Alerts
+- ⚠ ADR-0003 (multi-wiki): 소스 82/100건 — 임계값 80% 도달
 ```
 
 ## Auto-fix
