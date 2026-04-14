@@ -180,6 +180,7 @@ updated: <today>
 
 ```markdown
 ## [<today>] research | <topic>
+metrics: sources_collected=<total>, sources_processed=<selected>, agents=<N>
 <mode> 리서치. 에이전트 <N>개, <total>건 수집, <selected>건 선별 인제스트.
 ```
 
@@ -199,4 +200,4 @@ If the user agrees:
 1. `cd $WIKI_ROOT`
 2. `git add raw/ wiki/`
 3. Commit following Conventional Commits: `docs: research <topic>`
-4. `git push origin main`
+4. `git push origin HEAD`
