@@ -31,6 +31,7 @@ Create symlinks for wiki skills so they are discoverable from any workspace:
 
 ```bash
 WIKI_ROOT="!`pwd`"
+mkdir -p "$HOME/.claude/skills"
 for skill in wiki-ingest wiki-query wiki-lint wiki-research; do
   ln -sfn "$WIKI_ROOT/.claude/skills/$skill" "$HOME/.claude/skills/$skill"
 done
