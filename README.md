@@ -47,9 +47,26 @@ wiki/         # LLM이 생성·관리하는 위키
 ```
 /wiki-research <주제 또는 주장>
 /wiki-research --deep <주제 또는 주장>
+/wiki-research --mode explore|thesis <주제 또는 주장>
 ```
 
 주제를 주면 병렬 에이전트가 웹에서 소스를 찾아오고, 목록에서 선별하여 인제스트한다.
+- 탐색형(explore): 주제 키워드 → 다각도 탐색 (기본값)
+- 논증형(thesis): 주장/질문 → 찬반 + 중립 근거 수집
+- `--deep`: 에이전트 수를 3→5로 확장
+
+### 소스 철회
+
+```
+/wiki-retract <소스명> --reason "사유"
+/wiki-retract --dry-run <소스명>
+/wiki-retract
+```
+
+소스를 위키에서 철회한다. raw 파일 삭제, 소스 페이지 제거, 영향받는 페이지 업데이트, lint까지 자동 수행한다.
+- `--reason`: 필수. 철회 사유를 명시해야 한다.
+- `--dry-run`: 변경 없이 영향 범위만 분석한다.
+- 인자 없이 실행하면 소스 목록에서 선택한다.
 
 ### 건강 검진
 
@@ -110,7 +127,33 @@ LLM:    ✓ wiki/synthesis/rag-vs-llm-wiki.md로 저장 완료
 
 답변이 마음에 들면 `wiki/synthesis/`에 저장하여 지식으로 축적할 수 있다.
 
-### 3. 건강 검진 (`/wiki-lint`)
+### 3. 소스 철회 (`/wiki-retract`)
+
+특정 소스를 위키에서 완전히 제거:
+
+```
+사용자: /wiki-retract --dry-run karpathy-llm-wiki
+
+LLM:    # 영향 범위 분석 (dry-run)
+
+        삭제 대상:
+        - raw/karpathy-llm-wiki.md
+        - wiki/sources/karpathy-llm-wiki.md
+
+        영향받는 페이지 (3):
+        - wiki/entities/andrej-karpathy.md — 이 소스 참조 제거
+        - wiki/concepts/llm-wiki-pattern.md — 이 소스가 유일한 출처, 페이지 삭제 대상
+        - wiki/concepts/rag.md — 다른 소스도 참조 중, 참조만 제거
+
+        계속 진행할까요?
+
+사용자: /wiki-retract karpathy-llm-wiki --reason "테스트 데이터 정리"
+
+LLM:    ✓ 소스 철회 완료
+        - 2개 파일 삭제, 3개 페이지 업데이트, lint 통과
+```
+
+### 4. 건강 검진 (`/wiki-lint`)
 
 위키의 일관성을 점검:
 

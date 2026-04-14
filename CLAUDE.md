@@ -128,7 +128,7 @@ Before modifying files during ingest:
 4. Follow the plan page by page
 5. After completion, verify the plan was fully executed
 
-> Note: ADR revisit condition의 정량적 평가(소스 수, 단어 수 등)는 lint가 담당한다.
+> Note: Quantitative evaluation of ADR revisit conditions (source count, word count, etc.) is handled by lint.
 
 ## Human-in-the-Loop (HITL) Rules
 
