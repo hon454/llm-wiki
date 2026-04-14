@@ -30,10 +30,29 @@ If not already in the wiki workspace, load the wiki rules:
 
 1. If the argument is a URL:
    - Fetch the content using WebFetch
-   - Save the raw content to `$WIKI_ROOT/raw/<kebab-case-title>.md`
+   - Determine the target filename: `$WIKI_ROOT/raw/<kebab-case-title>.md`
 2. If the argument is a file path:
    - Read the file
-   - Copy it to `$WIKI_ROOT/raw/` if not already there
+   - Determine the target filename in `$WIKI_ROOT/raw/`
+
+3. **Raw file collision check** — before saving to `raw/`:
+   - If the target filename already exists in `raw/` AND a corresponding `wiki/sources/` page exists (already ingested):
+     ```
+     raw/<filename>.md 는 이미 인제스트된 소스입니다.
+     (1) 이름 변경 — 새 이름을 입력
+     (2) 건너뛰기 — 이 소스를 처리하지 않음
+     같은 소스를 갱신하려면 /wiki-retract 후 재인제스트하세요.
+     ```
+     Overwrite is **disallowed** for ingested sources.
+   - If the target filename exists but has NOT been ingested (no `wiki/sources/` page):
+     ```
+     raw/<filename>.md 가 이미 존재합니다.
+     (1) 이름 변경 — 새 이름을 입력
+     (2) 건너뛰기 — 이 소스를 처리하지 않음
+     raw/ 내용 교체는 LLM이 수행하지 않습니다. 직접 파일을 교체하거나 삭제 후 다시 시도하세요.
+     ```
+     Overwrite is **disallowed** for un-ingested sources as well.
+   - If no collision, save the file normally.
 
 **Without argument** (`/wiki-ingest`):
 
