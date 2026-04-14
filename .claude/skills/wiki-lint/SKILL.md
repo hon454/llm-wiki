@@ -79,6 +79,16 @@ For each deferred ADR in `docs/adr/`:
    - ⚠ ADR-0004 (automation): 최근 30일 내 10+ 소스 배치 인제스트 3회 감지
    ```
 
+### 8. Source Reference Validation
+
+- For each wiki page in `wiki/sources/`, `wiki/entities/`, `wiki/concepts/`, `wiki/synthesis/` (excluding `wiki/index.md` and `wiki/log.md`), check that files listed in `sources:` frontmatter exist in `raw/`
+- Pages with missing source references: auto-fix sets `status: needs-review`
+- Report format:
+  ```
+  ### Missing Source References
+  - wiki/entities/andrej-karpathy.md: sources references raw/karpathy-llm-wiki.md (not found)
+  ```
+
 ## Report Format
 
 Present results as:
@@ -95,6 +105,7 @@ Present results as:
 - Suspected contradictions: N
 - Slug conflicts: N
 - ADR revisit alerts: N
+- Missing source references: N
 
 ## Details
 
@@ -118,6 +129,9 @@ Present results as:
 
 ### ADR Revisit Alerts
 - ⚠ ADR-0003 (multi-wiki): 소스 82/100건 — 임계값 80% 도달
+
+### Missing Source References
+- wiki/entities/andrej-karpathy.md: sources references raw/karpathy-llm-wiki.md (not found)
 ```
 
 ## Auto-fix
@@ -126,6 +140,7 @@ After presenting the report, offer to fix issues automatically:
 - Add missing pages to `index.md`
 - Fix frontmatter (add missing fields with defaults)
 - For broken links: suggest creating stub pages or removing the link
+- For missing source references: set `status: needs-review` on affected pages
 
 Do NOT auto-fix contradictions — these require human judgment.
 
