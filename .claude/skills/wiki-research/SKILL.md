@@ -186,3 +186,17 @@ updated: <today>
 ### Step 7: Run lint
 
 Run `/wiki-lint` to validate the wiki after all changes.
+
+### Step 8: Commit & Push
+
+Ask the user if they want to commit and push the changes to the wiki repo:
+
+```
+위키 변경사항을 커밋하고 푸시할까요? (Y/n)
+```
+
+If the user agrees:
+1. `cd $WIKI_ROOT`
+2. `git add raw/ wiki/`
+3. Commit following Conventional Commits: `docs: research <topic>`
+4. `git push origin main`

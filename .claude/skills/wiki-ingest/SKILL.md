@@ -73,6 +73,16 @@ For each source to ingest:
 
 8. **Lint**: Run `/wiki-lint` to verify consistency
 
+9. **Commit & Push**: Ask the user if they want to commit and push:
+   ```
+   위키 변경사항을 커밋하고 푸시할까요? (Y/n)
+   ```
+   If the user agrees:
+   - `cd $WIKI_ROOT`
+   - `git add raw/ wiki/`
+   - Commit following Conventional Commits: `docs: ingest <source title>`
+   - `git push origin main`
+
 ### HITL Rules
 
 - If new source contradicts an existing page: set `status: needs-review`, do NOT overwrite, present both versions
