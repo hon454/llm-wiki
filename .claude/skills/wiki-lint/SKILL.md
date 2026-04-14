@@ -54,6 +54,16 @@ Run all checks below and compile a report.
 - Flag cases where conflicting statements exist about the same topic
 - This is a best-effort heuristic check — report suspected contradictions for human review
 
+### 6. Slug Conflicts
+
+- Collect all `.md` file basenames under `wiki/` (excluding `index.md` and `log.md`)
+- Flag any basename that appears in more than one directory
+- Report format:
+  ```
+  ### Slug Conflicts
+  - `transformer`: wiki/entities/transformer.md, wiki/concepts/transformer.md
+  ```
+
 ## Report Format
 
 Present results as:
@@ -68,6 +78,7 @@ Present results as:
 - Orphan pages: N
 - Frontmatter issues: N
 - Suspected contradictions: N
+- Slug conflicts: N
 
 ## Details
 
@@ -85,6 +96,9 @@ Present results as:
 
 ### Suspected Contradictions
 - (none)
+
+### Slug Conflicts
+- `transformer`: wiki/entities/transformer.md, wiki/concepts/transformer.md
 ```
 
 ## Auto-fix
